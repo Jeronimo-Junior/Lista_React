@@ -1,16 +1,24 @@
-import { StatusBar } from 'expo-status-bar';
+//import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { Input } from 'react-native-elements';
+import { Header } from 'react-native-elements';
 import { ListItem, Avatar } from 'react-native-elements'
 
-
-function CadastroScreen({ navigation }) {
+function HomeScreen({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Home Screen</Text>
+      <Input
+        placeholder='Email'
+      />
+      <Input
+        placeholder='Senha'
+      />
       <Button title='Login' onPress={() => navigation.navigate('ListaContatos')}></Button>
-      <Button title='Cadastro' onPress={() => navigation.navigate('CadastroUsuario')}></Button>
+      <Button title='Cadastre-se' onPress={() => navigation.navigate('CadastroUsuario')}></Button>
     </View>
   );
 }
@@ -18,32 +26,37 @@ function CadastroDeUsuarioScreen({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Cadastro de Usuário Screen</Text>
+
       <Button title='Salvar' onPress={() => navigation.navigate('Cadastro')}></Button>
     </View>
   );
 }
 
-
 function ListaDeContatosScreen({ navigation }) {
-
+ 
   const list = [
     {
-    name: 'Jeronimo Jr',
-    avatar_url: 'https://media.istockphoto.com/vectors/user-icon-flat-isolated-on-white-background-user-symbol-vector-vector-id1300845620?s=612x612',
-    number: '9987654321'
-  },
+      number: '97854625',
+      avatar_url: '',
+      name: 'Jeronimo'
+    },
     {
-      name: 'Guilherme Lacerda',
-    avatar_url: 'https://media.istockphoto.com/vectors/user-icon-flat-isolated-on-white-background-user-symbol-vector-vector-id1300845620?s=612x612',
-    subtitle: '9912345678'
-  },
-    ]
-
+      number: '9987456321',
+      avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
+      name: 'Guilherme'
+    }
+  ]
+  
+ 
+ 
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Lista de Contatos Screen</Text>
+    <View style={{}}>
+      <Header
+        leftComponent={{ icon: 'menu', color: '#fff', iconStyle: { color: '#fff' } }}
+        centerComponent={{ text: 'Lista de Contatos', style: { color: '#fff' } }}
+        rightComponent={{ icon: 'home', color: '#fff' }}
+      />
       
-
       <View>
         {
           list.map((l, i) => (
@@ -57,10 +70,15 @@ function ListaDeContatosScreen({ navigation }) {
           ))
         }
       </View>
+      
 
     </View>
   );
 }
+
+
+
+
 function CadastroDeContatoScreen({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -85,7 +103,7 @@ function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Cadastro" component={CadastroScreen} />
+        <Stack.Screen name="HomeScreen" component={HomeScreen} />
         <Stack.Screen name="CadastroUsuario" component={CadastroDeUsuarioScreen} />
         <Stack.Screen name="ListaContatos" component={ListaDeContatosScreen} />
         <Stack.Screen name="CadastroContato" component={CadastroDeContatoScreen} />
