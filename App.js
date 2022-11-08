@@ -10,7 +10,6 @@ import { ListItem, Avatar } from 'react-native-elements'
 function HomeScreen({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Home Screen</Text>
       <Input
         placeholder='Email'
       />
@@ -25,9 +24,20 @@ function HomeScreen({ navigation }) {
 function CadastroDeUsuarioScreen({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Cadastro de Usuário Screen</Text>
+      <Input
+        placeholder='Nome'
+      />
+      <Input
+        placeholder='Cpf'
+      />
+      <Input
+        placeholder='Email'
+      />
+      <Input
+        placeholder='Senha'
+      />
 
-      <Button title='Salvar' onPress={() => navigation.navigate('Cadastro')}></Button>
+      <Button title='Salvar' onPress={() => navigation.navigate('HomeScreen')}></Button>
     </View>
   );
 }
@@ -36,13 +46,15 @@ function ListaDeContatosScreen({ navigation }) {
  
   const list = [
     {
-      number: '97854625',
+    
+      number: '(81) 97854625',
       avatar_url: '',
-      name: 'Jeronimo'
+      name: 'Jeronimo',
+      
     },
     {
-      number: '9987456321',
-      avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
+      number: '(81) 9987456321',
+      avatar_url: '',
       name: 'Guilherme'
     }
   ]
@@ -50,12 +62,15 @@ function ListaDeContatosScreen({ navigation }) {
  
  
   return (
-    <View style={{}}>
+    <View>
       <Header
-        leftComponent={{ icon: 'menu', color: '#fff', iconStyle: { color: '#fff' } }}
         centerComponent={{ text: 'Lista de Contatos', style: { color: '#fff' } }}
-        rightComponent={{ icon: 'home', color: '#fff' }}
-      />
+        rightComponent={ <Button  
+          title="+"
+          onPress={()=>navigation.navigate('CadastroContato')}
+          ></Button>}
+/>
+      
       
       <View>
         {
@@ -64,7 +79,7 @@ function ListaDeContatosScreen({ navigation }) {
               <Avatar source={{ uri: l.avatar_url }} />
               <ListItem.Content>
                 <ListItem.Title>{l.name}</ListItem.Title>
-                <ListItem.Subtitle>{l.subtitle}</ListItem.Subtitle>
+                <ListItem.Subtitle>{l.number}</ListItem.Subtitle>
               </ListItem.Content>
             </ListItem>
           ))
@@ -82,14 +97,32 @@ function ListaDeContatosScreen({ navigation }) {
 function CadastroDeContatoScreen({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Cadastro de Contatos Screen</Text>
+       <Input
+        placeholder='Nome'
+      />
+      <Input
+        placeholder='Email'
+      />
+      <Input
+        placeholder='Telefone'
+      />
+      <Button title='Salvar' onPress={() => navigation.navigate('ListaContatos')}></Button>
     </View>
   );
 }
 function AlteracaoDeContatoScreen({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Alteração de Contatos Screen</Text>
+      <Input
+        placeholder='Nome'
+      />
+      <Input
+        placeholder='Email'
+      />
+      <Input
+        placeholder='Telefone'
+      />
+
       <Button title='Alterar' onPress={() => navigation.navigate('Cadastro')}></Button>
       <Button title='Excluir' onPress={() => navigation.navigate('Cadastro')}></Button>
 
@@ -98,6 +131,70 @@ function AlteracaoDeContatoScreen({ navigation }) {
 }
 
 const Stack = createNativeStackNavigator();
+
+function consultarDados(){
+
+  axios.get('http://professornilson.com/testeservico/clientes')
+  
+  .then(function (response) {
+  console.log(response);
+  }).catch(function (error) {
+  console.log(error);
+  
+  });
+  
+  }
+
+
+  function inserirDados(){
+
+    axios.post('http://professornilson.com/testeservico/clientes'
+    , {
+    
+    nome: getNome,
+    telefone: getTelefone,
+    cpf: getCpf
+    }).then(function (response) {
+    console.log(response);
+    }).catch(function (error) {
+    console.log(error);
+    
+    });
+    
+    }
+
+  function alterarDados(){
+
+      axios.put('http://professornilson.com/testeservico/clientes/'+getId
+      ,
+      
+      {
+      nome: getNome,
+      telefone: getTelefone,
+      cpf: getCpf
+      }).then(function (response) {
+      console.log(response);
+      }).catch(function (error) {
+      console.log(error);
+      
+      });
+      
+      }
+
+      function excluirDados(){
+
+        axios.delete('http://professornilson.com/testeservico/clientes/'+getId)
+        
+        .then(function (response) {
+        console.log(response);
+        }).catch(function (error) {
+        console.log(error);
+        
+        });
+        
+        }
+
+
 
 function App() {
   return (
