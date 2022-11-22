@@ -6,197 +6,187 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { Input } from 'react-native-elements';
 import { Header } from 'react-native-elements';
 import { ListItem, Avatar } from 'react-native-elements'
+import React, { useEffect, useState } from "react";
+import { FlatList } from 'react-native'
+import axios from 'axios';
 
-function HomeScreen({ navigation }) {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Input
-        placeholder='Email'
-      />
-      <Input
-        placeholder='Senha'
-      />
-      <Button title='Login' onPress={() => navigation.navigate('ListaContatos')}></Button>
-      <Button title='Cadastre-se' onPress={() => navigation.navigate('CadastroUsuario')}></Button>
-    </View>
-  );
-}
-function CadastroDeUsuarioScreen({ navigation }) {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Input
-        placeholder='Nome'
-      />
-      <Input
-        placeholder='Cpf'
-      />
-      <Input
-        placeholder='Email'
-      />
-      <Input
-        placeholder='Senha'
-      />
 
-      <Button title='Salvar' onPress={() => navigation.navigate('HomeScreen')}></Button>
-    </View>
-  );
-}
+// function HomeScreen({ navigation }) {
+//   return (
+//     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+//       <Input
+//         placeholder='Email'
+//       />
+//       <Input
+//         placeholder='Senha'
+//       />
+//       <Button title='Login' onPress={() => navigation.navigate('ListaContatos')}></Button>
+//       <Button title='Cadastre-se' onPress={() => navigation.navigate('CadastroUsuario')}></Button>
+//     </View>
+//   );
+// }
+// function CadastroDeUsuarioScreen({ navigation }) {
+//   return (
+//     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+//       <Input
+//         placeholder='Nome'
+//       />
+//       <Input
+//         placeholder='Cpf'
+//       />
+//       <Input
+//         placeholder='Email'
+//       />
+//       <Input
+//         placeholder='Senha'
+//       />
 
-function ListaDeContatosScreen({ navigation }) {
+//       <Button title='Salvar' onPress={() => navigation.navigate('HomeScreen')}></Button>
+//     </View>
+//   );
+// }
+
+// function ListaDeContatosScreen({ navigation }) {
  
-  const list = [
-    {
-    
-      number: '(81) 97854625',
-      avatar_url: '',
-      name: 'Jeronimo',
-      
-    },
-    {
-      number: '(81) 9987456321',
-      avatar_url: '',
-      name: 'Guilherme'
-    }
-  ]
+
+//   const renderItem = ({ item }) => (
+//     <ListItem bottomDivider
+//         containerStyle={{ width: 396 }}
+//         onPress={() => navigation.navigate('Contato', { id: item.id, nome: item.nome, telefone: item.telefone, email: item.email })}
+//     >
+        
+        
+//         </ListItem>
+//     )
+
   
  
  
-  return (
-    <View>
-      <Header
-        centerComponent={{ text: 'Lista de Contatos', style: { color: '#fff' } }}
-        rightComponent={ <Button  
-          title="+"
-          onPress={()=>navigation.navigate('CadastroContato')}
-          ></Button>}
-/>
+//   return (
+//     <View>
+//       <Header
+//         centerComponent={{ text: 'Lista de Contatos', style: { color: '#fff' } }}
+//         rightComponent={ <Button  
+//           title="+"
+//           onPress={()=>navigation.navigate('CadastroContato')}
+//           ></Button>}
+// />
       
       
-      <View>
-        {
-          list.map((l, i) => (
-            <ListItem key={i} bottomDivider>
-              <Avatar source={{ uri: l.avatar_url }} />
-              <ListItem.Content>
-                <ListItem.Title>{l.name}</ListItem.Title>
-                <ListItem.Subtitle>{l.number}</ListItem.Subtitle>
-              </ListItem.Content>
-            </ListItem>
-          ))
-        }
-      </View>
+      
       
 
-    </View>
-  );
-}
+//     </View>
+//   );
+// }
 
 
 
 
-function CadastroDeContatoScreen({ navigation }) {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-       <Input
-        placeholder='Nome'
-      />
-      <Input
-        placeholder='Email'
-      />
-      <Input
-        placeholder='Telefone'
-      />
-      <Button title='Salvar' onPress={() => navigation.navigate('ListaContatos')}></Button>
-    </View>
-  );
-}
-function AlteracaoDeContatoScreen({ navigation }) {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Input
-        placeholder='Nome'
-      />
-      <Input
-        placeholder='Email'
-      />
-      <Input
-        placeholder='Telefone'
-      />
+// function CadastroDeContatoScreen({ navigation }) {
+//   return (
+//     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+//        <Input
+//         placeholder='Nome'
+//       />
+//       <Input
+//         placeholder='Email'
+//       />
+//       <Input
+//         placeholder='Telefone'
+//       />
+//       <Button title='Salvar' onPress={() => navigation.navigate('ListaContatos')}></Button>
+//     </View>
+//   );
+// }
+// function AlteracaoDeContatoScreen({ navigation }) {
+//   return (
+//     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+//       <Input
+//         placeholder='Nome'
+//       />
+//       <Input
+//         placeholder='Email'
+//       />
+//       <Input
+//         placeholder='Telefone'
+//       />
 
-      <Button title='Alterar' onPress={() => navigation.navigate('Cadastro')}></Button>
-      <Button title='Excluir' onPress={() => navigation.navigate('Cadastro')}></Button>
+//       <Button title='Alterar' onPress={() => navigation.navigate('Cadastro')}></Button>
+//       <Button title='Excluir' onPress={() => navigation.navigate('Cadastro')}></Button>
 
-    </View>
-  );
-}
+//     </View>
+//   );
+// }
 
-const Stack = createNativeStackNavigator();
+// const Stack = createNativeStackNavigator();
 
-function consultarDados(){
+// function consultarDados(){
 
-  axios.get('http://professornilson.com/testeservico/clientes')
+//   axios.get('http://professornilson.com/testeservico/clientes')
   
-  .then(function (response) {
-  console.log(response);
-  }).catch(function (error) {
-  console.log(error);
+//   .then(function (response) {
+//   console.log(response);
+//   }).catch(function (error) {
+//   console.log(error);
   
-  });
+//   });
   
-  }
+//   }
 
 
-  function inserirDados(){
+//   function inserirDados(){
 
-    axios.post('http://professornilson.com/testeservico/clientes'
-    , {
+//     axios.post('http://professornilson.com/testeservico/clientes'
+//     , {
     
-    nome: getNome,
-    telefone: getTelefone,
-    cpf: getCpf
-    }).then(function (response) {
-    console.log(response);
-    }).catch(function (error) {
-    console.log(error);
+//     nome: getNome,
+//     telefone: getTelefone,
+//     cpf: getCpf
+//     }).then(function (response) {
+//     console.log(response);
+//     }).catch(function (error) {
+//     console.log(error);
     
-    });
+//     });
     
-    }
+//     }
 
-  function alterarDados(){
+//   function alterarDados(){
 
-      axios.put('http://professornilson.com/testeservico/clientes/'+getId
-      ,
+//       axios.put('http://professornilson.com/testeservico/clientes/'+getId
+//       ,
       
-      {
-      nome: getNome,
-      telefone: getTelefone,
-      cpf: getCpf
-      }).then(function (response) {
-      console.log(response);
-      }).catch(function (error) {
-      console.log(error);
+//       {
+//       nome: getNome,
+//       telefone: getTelefone,
+//       cpf: getCpf
+//       }).then(function (response) {
+//       console.log(response);
+//       }).catch(function (error) {
+//       console.log(error);
       
-      });
+//       });
       
-      }
+//       }
 
-      function excluirDados(){
+//       function excluirDados(){
 
-        axios.delete('http://professornilson.com/testeservico/clientes/'+getId)
+//         axios.delete('http://professornilson.com/testeservico/clientes/'+getId)
         
-        .then(function (response) {
-        console.log(response);
-        }).catch(function (error) {
-        console.log(error);
+//         .then(function (response) {
+//         console.log(response);
+//         }).catch(function (error) {
+//         console.log(error);
         
-        });
+//         });
         
-        }
+//         }
 
 
 
-function App() {
+export default function App() {
+  const Stack = createNativeStackNavigator();
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -210,4 +200,3 @@ function App() {
   );
 }
 
-export default App;

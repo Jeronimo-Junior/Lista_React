@@ -8,7 +8,7 @@ import { ListItem, Avatar } from 'react-native-elements'
 import React, { useEffect, useState } from "react";
 import { FlatList } from 'react-native'
 import axios from 'axios';
-import { initializeApp } from "firebase/app";
+import { initializeApp } from "firebase/Aula-app";
 import { firebaseConfig } from "../config/firebaseConfig";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
@@ -22,7 +22,7 @@ function CadastroDeUsuarioScreen({ navigation }) {
     const app = initializeApp(firebaseConfig);
     const auth = getAuth();
 
-    const CadastroDeContatoScreen = () => {
+    const CadastroDeUsuarioScreen = () => {
         createUserWithEmailAndPassword(auth, email, senha)
             .then(userCredential => {
                 alert('Conta criada!')
